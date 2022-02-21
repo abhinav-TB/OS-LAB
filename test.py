@@ -1,3 +1,4 @@
+
 class SJF():
     def __init__(self,arrival_time,burst_time) -> None:
         self.arrval_time = arrival_time
@@ -18,7 +19,9 @@ class SJF():
         s_time = 0
         
         self.data.sort(key=lambda x: x[1])
-
+        '''
+        Sort processes according to the Arrival Time
+        '''
         for i in range(len(self.data)):
             ready_queue = []
             temp = []
@@ -36,6 +39,9 @@ class SJF():
 
             if len(ready_queue) != 0:
                 ready_queue.sort(key=lambda x: x[2])
+                '''
+                Sort the processes according to the Burst Time
+                '''
                 start_time.append(s_time)
                 s_time = s_time + ready_queue[0][2]
                 e_time = s_time
@@ -74,14 +80,23 @@ class SJF():
         total_waiting_time = 0
         for i in range(len(self.data)):
             waiting_time = self.data[i][5] - self.data[i][2]
+            '''
+            waiting_time = turnaround_time - burst_time
+            '''
             total_waiting_time = total_waiting_time + waiting_time
             self.data[i].append(waiting_time)
         self.average_waiting_time = total_waiting_time / len(self.data)
+        '''
+        average_waiting_time = total_waiting_time / no_of_processes
+        '''
     
     def calcualte_turnaround_time(self):
         total_turnaround_time = 0
         for i in range(len(self.data)):
             turnaround_time = self.data[i][4] - self.data[i][1]
+            '''
+            turnaround_time = completion_time - arrival_time
+            '''
             total_turnaround_time = total_turnaround_time + turnaround_time
             self.data[i].append(turnaround_time)
         self.average_turnaround_time = total_turnaround_time / len(self.data)
@@ -89,10 +104,16 @@ class SJF():
     
     def print_results(self):
         self.data.sort(key=lambda x: x[0])
-        print("Process\t\tArrival Time\tBurst Time\tCompletionTime\tWaitingTime\tTurnaround Time")
+        '''
+        Sort processes according to the Process ID
+        '''
+        print("Process_ID  Arrival_Time  Burst_Time      Completed  Completion_Time  Turnaround_Time  Waiting_Time")
 
         for i in range(len(self.data)):
-            print(self.data[i][0], "\t\t", self.data[i][1], "\t\t", self.data[i][2], "\t\t", self.data[i][4], "\t\t", self.data[i][5], "\t\t", self.data[i][6])
+            for j in range(len(self.data[i])):
+
+                print(self.data[i][j], end="				")
+            print()
 
         print(f'Average Turnaround Time: {self.average_turnaround_time}')
 
@@ -109,7 +130,3 @@ if __name__ == "__main__":
         burst_time.append(int(input(f"Enter burst time of process {i+1}: ")))
     fcfs = SJF(arrival_time,burst_time)
     fcfs.print_results()
-
-        
-
-        
