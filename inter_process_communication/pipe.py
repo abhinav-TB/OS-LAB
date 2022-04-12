@@ -23,7 +23,7 @@ else:
     r = os.fdopen(r)
     s = r.read()
     s_items = s.split()
-    print("inside child processes!)
+    print("inside child processes!")
     print("the numbers read from parent processes are")
     for item in s_items: print(item)
     r.close()
