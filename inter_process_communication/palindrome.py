@@ -16,9 +16,9 @@ def main():
         r_obj = os.fdopen(r)
         result = r_obj.read()
         if int(result) > 0:
-            print("The string is palindrome ")
+            print("The string is a palindrome ")
         else:
-            print("The string is not palindrome")
+            print("The string is not a palindrome")
 
     else:
         os.close(w1)
